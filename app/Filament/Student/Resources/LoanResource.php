@@ -50,7 +50,7 @@ class LoanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-        ->emptyStateHeading('No tienes prestamos')
+        ->emptyStateHeading('No tienes prestamos en progreso')
         ->emptyStateIcon('heroicon-o-table-cells')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')

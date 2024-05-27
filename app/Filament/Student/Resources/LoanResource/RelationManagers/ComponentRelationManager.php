@@ -32,6 +32,8 @@ class ComponentRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+        ->emptyStateHeading('Sin componentes')
+        ->emptyStateDescription('Añade componentes a tu prestamo')
             ->recordTitleAttribute('store_id')
             ->columns([
                 Tables\Columns\TextColumn::make('store.name_component')

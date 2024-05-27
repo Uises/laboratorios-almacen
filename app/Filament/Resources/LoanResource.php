@@ -88,7 +88,8 @@ class LoanResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Fecha de prestamo')
                     ->dateTime()
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -97,6 +98,7 @@ class LoanResource extends Resource
             ->filters([
 
                 SelectFilter::make('state_loan')
+                ->label('Estado del prestamo')
                     ->options([
                         'on_loan' => 'En prestamo',
                         'delivered' => 'Entregado'
