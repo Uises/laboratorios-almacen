@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
+            'career'=>'Ing_computation',
+            'studentID'=>'1903408x'
         ]);
     }
 }

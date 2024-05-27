@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -37,11 +38,20 @@ class UserResource extends Resource
                             ->email()
                             ->required()
                             ->maxLength(255),
-                        // Forms\Components\DateTimePicker::make('email_verified_at'),
                         Forms\Components\TextInput::make('password')
                             ->password()
+                            ->hiddenOn('edit')
                             ->required()
                             ->maxLength(255),
+                        Forms\Components\TextInput::make('studentID')
+                            ->required()
+                            ->maxLength(255),
+                        Select::make('career')
+                            ->options([
+                                'Ing_computation' => 'Ingenieria en Computación',
+                                'Ing_electronics' => 'Ingenieria Electrónica',
+                                'Ing_electric' => 'Ingenieria Eléctrica'
+                            ])
                     ])
 
             ]);
@@ -73,8 +83,8 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make()
-                ->modalHeading('Eliminar administrador')
-                ->successNotificationTitle('Administrador eliminado')
+                    ->modalHeading('Eliminar administrador')
+                    ->successNotificationTitle('Administrador eliminado')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

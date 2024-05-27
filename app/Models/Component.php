@@ -18,4 +18,6 @@ class Component extends Model
     public function loan():BelongsTo{
         return $this->belongsTo(Loan::class);
     }
+
+    
 }

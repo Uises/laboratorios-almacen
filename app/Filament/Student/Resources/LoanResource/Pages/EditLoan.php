@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\LoanResource\Pages;
+namespace App\Filament\Student\Resources\LoanResource\Pages;
 
-use App\Filament\Resources\LoanResource;
+use App\Filament\Student\Resources\LoanResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -13,7 +13,7 @@ class EditLoan extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            // Actions\DeleteAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }

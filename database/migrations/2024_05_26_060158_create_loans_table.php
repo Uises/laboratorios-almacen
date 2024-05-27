@@ -13,11 +13,19 @@ return new class extends Migration
     {
         Schema::create('loans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')
+            $table->foreignId('user_id')
             ->constrained()
             ->onDelete('cascade')
             ->onUpdate('cascade');
-            $table->enum('state_loan',['on_loan','delivered']);
+            $table->foreignId('teacher_id')
+            ->constrained()
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->foreignId('laboratory_id')
+            ->constrained()
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->enum('state_loan',['on_loan','delivered'])->default('on_loan');
             $table->timestamps();
         });
     }
