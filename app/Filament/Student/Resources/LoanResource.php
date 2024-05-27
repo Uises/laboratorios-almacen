@@ -5,6 +5,7 @@ namespace App\Filament\Student\Resources;
 use App\Filament\Student\Resources\LoanResource\Pages;
 use App\Filament\Student\Resources\LoanResource\RelationManagers;
 use App\Models\Loan;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -21,12 +22,16 @@ class LoanResource extends Resource
     protected static ?string $model = Loan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Prestamos';
+    protected static ?string $navigationLabel = 'Mis Prestamos';
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('user_id', Auth::user()->id)->orderBy('id', 'desc');
+        return parent::getEloquentQuery()->where('user_id', Auth::user()->id)->where('state_loan','on_loan')->orderBy('id', 'desc');
     }
+
+    
+
+    
 
     public static function form(Form $form): Form
     {
@@ -45,16 +50,18 @@ class LoanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->emptyStateHeading('No tienes prestamos')
+        ->emptyStateIcon('heroicon-o-table-cells')
             ->columns([
                 Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
+                ->label('Nombre')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('teacher.name')
-                    ->numeric()
-                    ->sortable(),
+                ->label('Profesor')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('laboratory.name')
-                    ->numeric()
-                    ->sortable(),
+                ->label('Laboratorio')
+                    ->numeric(),
                 Tables\Columns\TextColumn::make('state_loan')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -82,11 +89,6 @@ class LoanResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('state_loan')
-                    ->options([
-                        'on_loan' => 'En prestamo',
-                        'delivered' => 'Entregado'
-                    ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

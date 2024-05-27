@@ -29,8 +29,10 @@ class LoanResource extends Resource
             ->schema([
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
-                    ->required(),
+                    ->required()
+                    ->hiddenOn('edit'),
                 Forms\Components\Select::make('state_loan')
+                ->label('Estado del prestamo')
                     ->options([
                         'on_loan' => 'En prestamo',
                         'delivered' => 'Devuelto'
